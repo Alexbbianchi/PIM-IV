@@ -14,7 +14,7 @@ export default function List() {
             setTechs(techsArray);
         })
     }, []);
-
+    
     return (
         <SafeAreaView style={styles.container}>
             <Image style={styles.logo} source={logo} />
