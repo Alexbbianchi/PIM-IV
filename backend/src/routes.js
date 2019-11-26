@@ -1,22 +1,28 @@
-const express = require('express');
-const multer = require('multer'); //
-const uploadConfig = require('./config/upload');
+const express = require('express')
 
-const SessionController = require('./controllers/SessionController');
-const SpotController = require('./controllers/SpotController');
-const DashboardController = require('./controllers/DashboardController');
-const BookingController = require('./controllers/BookingController');
+const multer = require('multer')
+const uploadConfig = require('./config/upload')
 
-const routes = express.Router();
-const upload = multer(uploadConfig);
+const SessionController = require('./controllers/SessionController')
+const horseController = require('./controllers/horseController')
+const DashboardController = require('./controllers/DashboardController')
+const BookingController = require('./controllers/BookingController')
+const ApprovalController = require('./controllers/ApprovalController')
+const RejectionController = require('./controllers/RejectionController')
 
-routes.post('/sessions', SessionController.store);
+const routes = express.Router()
+const uploadMiddleware = multer(uploadConfig)
 
-routes.get('/spots', SpotController.index);
-routes.post('/spots', upload.single('thumbnail'), SpotController.store);
+routes.post('/sessions', SessionController.store)
 
-routes.get('/dashboard', DashboardController.show);
+routes.get('/horses', horseController.index)
+routes.post('/horses', uploadMiddleware.single('thumbnail'), horseController.store)
 
-routes.post('/spots/:spot_id/bookings', BookingController.store);
+routes.get('/dashboard', DashboardController.show)
 
-module.exports = routes;
+routes.post('/horses/:horse_id/bookings', BookingController.store)
+
+routes.post('/bookings/:booking_id/approvals', ApprovalController.store)
+routes.post('/bookings/:booking_id/rejections', RejectionController.store)
+
+module.exports = routes

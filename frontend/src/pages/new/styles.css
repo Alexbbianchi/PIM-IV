@@ -1,0 +1,41 @@
+label#thumbnail {
+    margin-bottom: 20px;
+    border: 1px dashed #DDD;
+    background-size: cover;
+    cursor: pointer;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+label#thumbnail input {
+    display: none;
+}
+
+label#thumbnail.has-thumbnail {
+    border: 0;
+}
+
+label#thumbnail.has-thumbnail img {
+    display: none;
+ }
+
+ label {
+     text-align: left;
+ }
+
+.titlesforinputs {
+     font-size: 24px !important;
+     text-align: center;
+     color: darkblue !important;
+     display: flex;
+     align-items: center;
+     justify-items: center;
+     justify-content: center;
+     padding: 0px 0px 10px 0px;
+ }
+
+ input::placeholder {
+     font-size: 12px;
+ }

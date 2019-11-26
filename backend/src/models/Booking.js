@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const BookingSchema = new mongoose.Schema({
     date: String,
@@ -7,10 +7,10 @@ const BookingSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    spot: {
+    horse: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Spot'
+        ref: 'Horse'
     }
-});
+})
 
-module.exports = mongoose.model('Booking', BookingSchema);
+module.exports = mongoose.model('Booking', BookingSchema)

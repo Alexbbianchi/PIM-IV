@@ -1,18 +1,40 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const routes = require('./routes');
+const express = require('express')
+const mongoose = require('mongoose')
+const cors = require('cors')
+const path = require('path')
+const socketio = require('socket.io')
+const http = require('http')
 
-const app = express();
+const routes = require('./routes')
 
-mongoose.connect('mongodb+srv://alex:alex@cluster0-lk5kr.mongodb.net/tordilhoNegro2?retryWrites=true&w=majority', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    })
-    // req.query = Acessa query params (para filtros);
-    // req.params = Acessar route params (para edição, delete);
-    // req.body = Acessar corpo da requisição (para criação, edição);
+const app = express()
+const server = http.Server(app)
+const io = socketio(server)
 
-app.use(express.json());
-app.use(routes);
+mongoose.connect('mongodb+srv://mariofelipefarhat:Joia6786saC@cluster0-ox5up.mongodb.net/horses?retryWrites=true&w=majority', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
 
-app.listen(3333);
+const connectedUsers = {}
+
+io.on('connection', (socket) => {
+    //console.log(`Socket connected: ${socket.id}`)
+    const { user_id } = socket.handshake.query
+
+    connectedUsers[user_id] = socket.id
+})
+
+app.use((req, res, next) => {
+    req.io = io
+    req.connectedUsers = connectedUsers
+    return next()
+})
+
+app.use(cors())
+app.use(express.json())
+app.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')))
+app.use(routes)
+
+server.listen(3333)
