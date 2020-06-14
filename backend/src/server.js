@@ -11,7 +11,7 @@ const app = express()
 const server = http.Server(app)
 const io = socketio(server)
 
-mongoose.connect('mongodb+srv://mariofelipefarhat:Joia6786saC@cluster0-ox5up.mongodb.net/horses?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://alex:alex@cluster0-lk5kr.mongodb.net/tordilhoNegro?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
